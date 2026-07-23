@@ -1,0 +1,130 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await Astro.glob('../content/blog/*.md')).sort(
+	(a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
+);
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section class="hero">
+				<h1>ValdiviaSec</h1>
+				<p class="subtitle">Comunidad de ciberseguridad en Valdivia, Chile</p>
+				<p class="description">
+					Compartimos conocimiento, organizamos encuentros y fortalecemos la seguridad digital en la región.
+				</p>
+			</section>
+
+			<section class="posts">
+				<h2>Últimos artículos</h2>
+				<div class="post-list">
+					{posts.map((post) => (
+						<article class="post-card">
+							<a href={`/blog/${post.url?.split('/').pop()?.replace('.md', '')}/`}>
+								<h3>{post.frontmatter.title}</h3>
+								<p class="meta">
+									<FormattedDate date={new Date(post.frontmatter.pubDate)} />
+									{post.frontmatter.author && <span class="author"> · {post.frontmatter.author}</span>}
+								</p>
+								<p class="description">{post.frontmatter.description}</p>
+								{post.frontmatter.tags && (
+									<div class="tags">
+										{post.frontmatter.tags.map((tag: string) => (
+											<span class="tag">{tag}</span>
+										))}
+									</div>
+								)}
+							</a>
+						</article>
+					))}
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.hero {
+		text-align: center;
+		padding: 4rem 1rem 2rem;
+	}
+	.hero h1 {
+		font-size: 3rem;
+		margin-bottom: 0.5rem;
+	}
+	.hero .subtitle {
+		font-size: 1.3rem;
+		color: rgb(var(--gray));
+		margin-bottom: 1rem;
+	}
+	.hero .description {
+		font-size: 1.1rem;
+		max-width: 600px;
+		margin: 0 auto;
+	}
+	.posts {
+		padding: 2rem 1rem;
+	}
+	.posts h2 {
+		margin-bottom: 1.5rem;
+	}
+	.post-list {
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+	.post-card {
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 12px;
+		padding: 1.5rem;
+		transition: box-shadow 0.2s;
+	}
+	.post-card:hover {
+		box-shadow: var(--box-shadow);
+	}
+	.post-card a {
+		text-decoration: none;
+		color: inherit;
+	}
+	.post-card h3 {
+		margin: 0 0 0.5rem 0;
+		font-size: 1.4rem;
+	}
+	.post-card .meta {
+		color: rgb(var(--gray));
+		font-size: 0.9rem;
+		margin: 0 0 0.5rem 0;
+	}
+	.post-card .description {
+		margin: 0 0 0.75rem 0;
+	}
+	.tags {
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
+	}
+	.tag {
+		background: rgb(var(--gray-light));
+		padding: 0.2rem 0.6rem;
+		border-radius: 999px;
+		font-size: 0.8rem;
+		color: rgb(var(--gray-dark));
+	}
+	@media (max-width: 720px) {
+		.hero h1 {
+			font-size: 2rem;
+		}
+	}
+</style>

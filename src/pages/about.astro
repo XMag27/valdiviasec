@@ -1,0 +1,48 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<BaseHead title="Nosotros - ValdiviaSec" description="Comunidad de ciberseguridad en Valdivia, Chile" />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Nosotros</h1>
+			<p>
+				<strong>ValdiviaSec</strong> es una comunidad de ciberseguridad basada en Valdivia, Chile.
+				Nuestro objetivo es crear un espacio colaborativo donde profesionales, estudiantes y
+				entusiastas de la seguridad informática puedan compartir conocimiento y crecer juntos.
+			</p>
+
+			<h2>Nuestra misión</h2>
+			<ul>
+				<li>Promover la cultura de seguridad informática en la región</li>
+				<li>Compartir conocimiento técnico a través de artículos y encuentros</li>
+				<li>Crear un espacio inclusivo para aprender y practicar</li>
+				<li>Conectar profesionales y empresas del sector</li>
+			</ul>
+
+			<h2>¿Cómo participar?</h2>
+			<p>
+				Cualquier persona puede contribuir al blog. Puedes escribir artículos técnicos,
+				compartir write-ups de CTFs, o simplemente asistir a nuestros encuentros.
+			</p>
+			<p>
+				Si quieres publicar un artículo, puedes hacerlo a través de nuestro
+				<a href="/admin">panel de administración</a> o enviando un PR al repositorio.
+			</p>
+
+			<h2>Contacto</h2>
+			<p>
+				¿Tienes preguntas o quieres colaborar? Escríbenos a
+				<a href="mailto:contacto@valdiviasec.com">contacto@valdiviasec.com</a>
+			</p>
+		</main>
+		<Footer />
+	</body>
+</html>
