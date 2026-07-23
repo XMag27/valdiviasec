@@ -4,9 +4,10 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
 
-const posts = (await Astro.glob('../content/blog/*.md')).sort(
-	(a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 ---
 
@@ -31,16 +32,16 @@ const posts = (await Astro.glob('../content/blog/*.md')).sort(
 				<div class="post-list">
 					{posts.map((post) => (
 						<article class="post-card">
-							<a href={`/blog/${post.url?.split('/').pop()?.replace('.md', '')}/`}>
-								<h3>{post.frontmatter.title}</h3>
+							<a href={`/blog/${post.id}/`}>
+								<h3>{post.data.title}</h3>
 								<p class="meta">
-									<FormattedDate date={new Date(post.frontmatter.pubDate)} />
-									{post.frontmatter.author && <span class="author"> · {post.frontmatter.author}</span>}
+									<FormattedDate date={post.data.pubDate} />
+									{post.data.author && <span class="author"> · {post.data.author}</span>}
 								</p>
-								<p class="description">{post.frontmatter.description}</p>
-								{post.frontmatter.tags && (
+								<p class="description">{post.data.description}</p>
+								{post.data.tags && (
 									<div class="tags">
-										{post.frontmatter.tags.map((tag: string) => (
+										{post.data.tags.map((tag: string) => (
 											<span class="tag">{tag}</span>
 										))}
 									</div>

@@ -1,0 +1,14 @@
+# Cloudflare Pages configuration
+name = "valdiviasec"
+compatibility_date = "2026-07-23"
+
+[build]
+command = "npm run build"
+cwd = "."
+watch_dirs = ["src"]
+
+[build.upload]
+format = "static"
+
+# Static site - just serve the dist directory
+# Cloudflare Pages auto-detects the output directory
