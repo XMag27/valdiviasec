@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>ValdiviaSec - Administración</title>
+  <script>
+    // Fix hash for Decap CMS auth callback
+    // Worker redirects to #access_token=... but CMS router adds / making it #/access_token=...
+    // This script runs BEFORE CMS loads and normalizes the hash
+    if (window.location.hash && window.location.hash.match(/^#\/access_token=/)) {
+      var fixed = window.location.hash.replace(/^#\/access_token=/, '#access_token=');
+      window.location.replace(fixed);
+    }
+  </script>
 </head>
 <body>
   <div id="nc-root"></div>
