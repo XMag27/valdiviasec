@@ -1,0 +1,74 @@
+/* ============================================================
+   VALDIVIA · Design Tokens — para el sitio web
+   Fuentes libres (OFL): Space Grotesk + JetBrains Mono
+   ============================================================ */
+
+@font-face{
+  font-family:'Space Grotesk';
+  src:url('./fuentes/SpaceGrotesk.ttf') format('truetype');
+  font-weight:300 700; font-display:swap;
+}
+@font-face{
+  font-family:'JetBrains Mono';
+  src:url('./fuentes/JetBrainsMono.ttf') format('truetype');
+  font-weight:400 800; font-display:swap;
+}
+
+:root{
+  /* ---- Color ---- */
+  --obsidian:#0A0A0A;        /* fondo principal */
+  --bg-2:#141416;            /* superficies / cards */
+  --graphite:#2A2A2A;        /* bordes / líneas */
+  --terracota:#C4522A;       /* acento (único) */
+  --terracota-dark:#8B3A1E;  /* arcilla · hover · greca */
+  --terracota-light:#D97A55; /* texto pequeño sobre negro (AA) */
+  --bone:#F2EDE8;            /* texto primario sobre oscuro */
+  --muted:#9A9390;           /* texto secundario */
+  --success:#6FCF97;         /* [OK] en bloques de terminal */
+  --critical:#E5574B;        /* severidad crítica */
+
+  /* ---- Tipografía ---- */
+  --font-display:'Space Grotesk', system-ui, sans-serif;  /* titulares + wordmark (700), subtítulos (500), body (400) */
+  --font-mono:'JetBrains Mono', ui-monospace, monospace;  /* voz técnica, labels, URLs, código */
+
+  --fs-hero:clamp(48px, 8vw, 88px);
+  --fs-h1:44px; --fs-h2:26px; --fs-h3:20px;
+  --fs-body:18px; --fs-small:14px; --fs-mono:15px;
+  --lh-body:1.7;
+
+  /* ---- Forma / espacio ---- */
+  --radius-sm:8px; --radius:12px; --radius-lg:18px;
+  --maxw:1080px;
+  --space:24px;
+}
+
+/* ---- Uso rápido ---- */
+body{
+  background:var(--obsidian); color:var(--bone);
+  font-family:var(--font-display); font-weight:400; line-height:var(--lh-body);
+  -webkit-font-smoothing:antialiased;
+}
+.kicker{ font-family:var(--font-mono); color:var(--terracota-light); letter-spacing:.02em; }
+.h-hero{ font-family:var(--font-display); font-weight:700; font-size:var(--fs-hero); line-height:1.02; }
+.h-hero .accent{ color:var(--terracota); }
+
+/* Botones */
+.btn{ font-family:var(--font-mono); font-size:15px; padding:14px 22px; border-radius:var(--radius-sm);
+      border:1px solid transparent; cursor:pointer; display:inline-flex; gap:8px; align-items:center; }
+.btn-primary{ background:var(--terracota); color:var(--obsidian); font-family:var(--font-display); font-weight:700; }
+.btn-primary:hover{ background:var(--terracota-light); }
+.btn-ghost{ border-color:var(--graphite); color:var(--bone); }
+.btn-ghost:hover{ border-color:var(--terracota); color:var(--terracota); }
+
+/* Chip / tag */
+.chip{ font-family:var(--font-mono); font-size:13px; letter-spacing:.2em; text-transform:uppercase;
+       color:var(--terracota-light); border:1px solid var(--terracota-dark); border-radius:7px; padding:8px 14px; }
+.tag{ font-family:var(--font-mono); font-size:13px; color:var(--muted);
+      border:1px solid var(--graphite); border-radius:6px; padding:5px 12px; }
+
+/* Card */
+.card{ background:var(--bg-2); border:1px solid var(--graphite); border-radius:var(--radius); }
+
+/* NOTA de accesibilidad:
+   El terracota #C4522A sobre negro da ~4.33:1 → usar SOLO en texto grande/bold.
+   Para texto pequeño sobre negro usar --terracota-light (#D97A55). */

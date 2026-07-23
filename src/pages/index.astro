@@ -20,10 +20,10 @@ const posts = (await getCollection('blog')).sort(
 		<Header />
 		<main>
 			<section class="hero">
-				<h1>ValdiviaSec</h1>
-				<p class="subtitle">Comunidad de ciberseguridad en Guayaquil, Ecuador</p>
+				<span class="kicker">Ciberseguridad</span>
+				<h1>We find what's <span class="accent">underneath.</span></h1>
 				<p class="description">
-					Compartimos conocimiento, organizamos encuentros y fortalecemos la seguridad digital en la región.
+					Comunidad de ciberseguridad en Guayaquil, Ecuador. Compartimos conocimiento, organizamos encuentros y fortalecemos la seguridad digital en la región.
 				</p>
 			</section>
 
@@ -31,7 +31,7 @@ const posts = (await getCollection('blog')).sort(
 				<h2>Últimos artículos</h2>
 				<div class="post-list">
 					{posts.map((post) => (
-						<article class="post-card">
+						<article class="card post-card">
 							<a href={`/blog/${post.id}/`}>
 								<h3>{post.data.title}</h3>
 								<p class="meta">
@@ -59,73 +59,79 @@ const posts = (await getCollection('blog')).sort(
 <style>
 	.hero {
 		text-align: center;
-		padding: 4rem 1rem 2rem;
+		padding: 6rem 1rem 3rem;
+	}
+	.hero .kicker {
+		display: block;
+		margin-bottom: 0.75rem;
 	}
 	.hero h1 {
-		font-size: 3rem;
-		margin-bottom: 0.5rem;
+		font-size: var(--fs-hero);
+		font-weight: 700;
+		line-height: 1.05;
+		margin: 0 0 1rem 0;
+		color: var(--bone);
 	}
-	.hero .subtitle {
-		font-size: 1.3rem;
-		color: rgb(var(--gray));
-		margin-bottom: 1rem;
+	.hero .accent {
+		color: var(--terracota);
 	}
 	.hero .description {
 		font-size: 1.1rem;
-		max-width: 600px;
+		color: var(--muted);
+		max-width: 560px;
 		margin: 0 auto;
+		line-height: 1.6;
 	}
 	.posts {
-		padding: 2rem 1rem;
+		padding: 2rem 0;
 	}
 	.posts h2 {
+		font-size: var(--fs-h2);
+		font-weight: 700;
 		margin-bottom: 1.5rem;
+		color: var(--bone);
 	}
 	.post-list {
 		display: flex;
 		flex-direction: column;
-		gap: 1.5rem;
+		gap: 1.25rem;
 	}
 	.post-card {
-		border: 1px solid rgb(var(--gray-light));
-		border-radius: 12px;
 		padding: 1.5rem;
-		transition: box-shadow 0.2s;
-	}
-	.post-card:hover {
-		box-shadow: var(--box-shadow);
 	}
 	.post-card a {
 		text-decoration: none;
 		color: inherit;
+		display: block;
 	}
 	.post-card h3 {
+		font-size: 1.3rem;
+		font-weight: 700;
 		margin: 0 0 0.5rem 0;
-		font-size: 1.4rem;
+		color: var(--bone);
+		transition: color 0.2s;
+	}
+	.post-card:hover h3 {
+		color: var(--terracota-light);
 	}
 	.post-card .meta {
-		color: rgb(var(--gray));
-		font-size: 0.9rem;
+		color: var(--muted);
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
 		margin: 0 0 0.5rem 0;
 	}
 	.post-card .description {
 		margin: 0 0 0.75rem 0;
+		color: var(--muted);
 	}
 	.tags {
 		display: flex;
 		gap: 0.5rem;
 		flex-wrap: wrap;
 	}
-	.tag {
-		background: rgb(var(--gray-light));
-		padding: 0.2rem 0.6rem;
-		border-radius: 999px;
-		font-size: 0.8rem;
-		color: rgb(var(--gray-dark));
-	}
 	@media (max-width: 720px) {
-		.hero h1 {
-			font-size: 2rem;
+		.hero {
+			padding: 3rem 1rem 2rem;
 		}
 	}
 </style>

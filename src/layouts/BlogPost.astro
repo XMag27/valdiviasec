@@ -14,50 +14,7 @@ const { title, description, pubDate, updatedDate, heroImage, author } = Astro.pr
 <html lang="es">
 	<head>
 		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.meta {
-				display: flex;
-				justify-content: center;
-				gap: 0.5rem;
-				color: rgb(var(--gray));
-				font-size: 0.9rem;
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
 	</head>
-
 	<body>
 		<Header />
 		<main>
@@ -88,3 +45,74 @@ const { title, description, pubDate, updatedDate, heroImage, author } = Astro.pr
 		<Footer />
 	</body>
 </html>
+
+<style>
+	main {
+		width: calc(100% - 2em);
+		max-width: 100%;
+		margin: 0;
+	}
+	.hero-image {
+		width: 100%;
+	}
+	.hero-image img {
+		display: block;
+		margin: 0 auto;
+		border-radius: var(--radius);
+		border: 1px solid var(--graphite);
+	}
+	.prose {
+		width: 720px;
+		max-width: calc(100% - 2em);
+		margin: auto;
+		padding: 1em;
+		color: var(--bone);
+	}
+	.prose :global(h2),
+	.prose :global(h3) {
+		color: var(--bone);
+	}
+	.prose :global(a) {
+		color: var(--terracota-light);
+	}
+	.prose :global(a:hover) {
+		color: var(--terracota);
+	}
+	.prose :global(code) {
+		background: var(--bg-2);
+		border: 1px solid var(--graphite);
+	}
+	.prose :global(pre) {
+		background: var(--bg-2);
+		border: 1px solid var(--graphite);
+	}
+	.prose :global(blockquote) {
+		border-left-color: var(--terracota);
+	}
+	.title {
+		margin-bottom: 1em;
+		padding: 1em 0;
+		text-align: center;
+		line-height: 1;
+	}
+	.title h1 {
+		margin: 0 0 0.5em 0;
+		color: var(--bone);
+	}
+	.meta {
+		display: flex;
+		justify-content: center;
+		gap: 0.5rem;
+		color: var(--muted);
+		font-family: var(--font-mono);
+		font-size: 0.85rem;
+	}
+	.last-updated-on {
+		font-style: italic;
+		color: var(--muted);
+		font-size: 0.85rem;
+	}
+	hr {
+		border-color: var(--graphite);
+	}
+</style>

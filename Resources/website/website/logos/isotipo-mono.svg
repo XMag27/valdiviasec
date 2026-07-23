@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="VALDIVIA">
+  <title>VALDIVIA — Isotipo monocromo (una tinta, V en negativo)</title>
+  <!-- Una sola tinta: la teja es la tinta, la V queda calada (transparente).
+       Cambia el fill para adaptarlo a cualquier fondo. -->
+  <path fill="#C4522A" fill-rule="evenodd" d="M100,0 L412,0 C454,0 512,58 512,100 L512,412 C512,454 454,512 412,512 L100,512 C58,512 0,454 0,412 L0,100 C0,58 58,0 100,0 Z M107,127 h70 v70 h-70 Z M335,127 h70 v70 h-70 Z M160,232 h70 v70 h-70 Z M282,232 h70 v70 h-70 Z M221,326 h70 v70 h-70 Z"/>
+</svg>
