@@ -9,7 +9,7 @@ tags: ['comunidad', 'anuncios']
 
 ¡Hola y bienvenidos a **ValdiviaSec**!
 
-Somos una comunidad de ciberseguridad basada en Valdivia, Chile. Nuestro objetivo es crear un espacio donde entusiastas, profesionales y estudiantes puedan compartir conocimiento, aprender juntos y fortalecer la seguridad digital en nuestra región.
+Somos una comunidad de ciberseguridad basada en Valdivia, Ecuador. Nuestro objetivo es crear un espacio donde entusiastas, profesionales y estudiantes puedan compartir conocimiento, aprender juntos y fortalecer la seguridad digital en nuestra región.
 
 ## ¿Qué encontrarás aquí?
 
