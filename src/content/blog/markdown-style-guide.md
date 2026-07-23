@@ -1,12 +1,12 @@
 ---
 title: 'Escribiendo posts con Markdown'
-description: 'Guía de formato para contribuidores del blog'
+description: 'Guía de formato para el equipo editorial de ValdiviaSec'
 pubDate: 'Jul 22 2026'
 author: 'ValdiviaSec'
-tags: ['guía', 'markdown', 'contribuir']
+tags: ['guía', 'markdown', 'editorial']
 ---
 
-Esta guía te muestra cómo escribir posts para el blog de ValdiviaSec usando Markdown.
+Esta guía muestra cómo escribir posts para el blog de ValdiviaSec usando Markdown.
 
 ## Frontmatter
 
@@ -17,7 +17,7 @@ Cada post necesita un encabezado YAML con:
 title: 'Título del post'
 description: 'Breve descripción'
 pubDate: 'Jul 22 2026'
-author: 'Tu nombre'
+author: 'Nombre del autor'
 tags: ['tag1', 'tag2']
 ---
 ```
@@ -43,11 +43,6 @@ def hello():
 
 [ValdiviaSec](https://valdiviasec.com)
 
-## Cómo publicar
+## Publicación
 
-Puedes publicar posts de dos formas:
-
-1. **Vía Git**: Haz un PR al repositorio con tu archivo `.md` en `src/content/blog/`
-2. **Vía CMS**: Entra a `valdiviasec.com/admin` y usa el editor visual
-
-¡Cualquier persona puede contribuir!
+Las publicaciones son gestionadas por el equipo editorial de ValdiviaSec a través del panel de administración en `/admin`.

@@ -1,6 +1,6 @@
 ---
 title: 'Bienvenidos a ValdiviaSec'
-description: 'Presentamos la comunidad de ciberseguridad en Valdivia'
+description: 'Presentamos la comunidad de ciberseguridad en Guayaquil, Ecuador'
 pubDate: 'Jul 20 2026'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 author: 'ValdiviaSec'
@@ -9,7 +9,7 @@ tags: ['comunidad', 'anuncios']
 
 ¡Hola y bienvenidos a **ValdiviaSec**!
 
-Somos una comunidad de ciberseguridad basada en Valdivia, Ecuador. Nuestro objetivo es crear un espacio donde entusiastas, profesionales y estudiantes puedan compartir conocimiento, aprender juntos y fortalecer la seguridad digital en nuestra región.
+Somos una comunidad de ciberseguridad basada en Guayaquil, Ecuador. Nuestro objetivo es crear un espacio donde entusiastas, profesionales y estudiantes puedan compartir conocimiento, aprender juntos y fortalecer la seguridad digital en nuestra región.
 
 ## ¿Qué encontrarás aquí?
 
@@ -20,6 +20,6 @@ Somos una comunidad de ciberseguridad basada en Valdivia, Ecuador. Nuestro objet
 
 ## ¿Cómo participar?
 
-Si estás en Valdivia o te interesa la ciberseguridad, ¡únete! Puedes contribuir con artículos, asistir a nuestros encuentros o simplemente seguir nuestras publicaciones.
+Si te interesa la ciberseguridad, ¡únete! Puedes asistir a nuestros encuentros, seguir nuestras publicaciones o contactarnos si quieres colaborar con un artículo.
 
 ¡Nos vemos en el próximo encuentro!
