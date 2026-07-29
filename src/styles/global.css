@@ -61,6 +61,25 @@
   --gray-gradient: #141416, #0A0A0A;
   --box-shadow: 0 2px 6px rgba(154, 147, 144, 0.15), 0 8px 24px rgba(154, 147, 144, 0.1);
 
+  /* ---- Shiki css-variables theme ---- */
+  --astro-code-background: var(--obsidian);
+  --astro-code-foreground: var(--bone);
+  --shiki-color-text: var(--bone);
+  --shiki-color-background: var(--obsidian);
+  --shiki-token-constant: #D97A55;
+  --shiki-token-string: #A8D8A8;
+  --shiki-token-comment: #6A737D;
+  --shiki-token-keyword: #F97583;
+  --shiki-token-parameter: #E1E4E8;
+  --shiki-token-function: #B392F0;
+  --shiki-token-string-expression: #9ECBFF;
+  --shiki-token-punctuation: #E1E4E8;
+  --shiki-token-link: #79C0FF;
+  --shiki-token-number: #79C0FF;
+  --shiki-token-boolean: #D97A55;
+  --shiki-token-property: #79C0FF;
+  --shiki-token-operator: #F97583;
+
   /* ---- Sidebar ---- */
   --sidebar-w: 260px;
 }
@@ -137,18 +156,28 @@ code {
 pre {
   padding: 1.25em 1.5em;
   border-radius: var(--radius);
-  background: var(--obsidian);
+  background: var(--obsidian) !important;
   border: 1px solid var(--graphite);
   overflow-x: auto;
   position: relative;
   font-size: 0.88rem;
   line-height: 1.65;
+  color: var(--bone) !important;
 }
 pre > code {
   all: unset;
   font-family: var(--font-mono);
   font-size: inherit;
-  color: var(--bone);
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+}
+pre.astro-code {
+  padding: 1.25em 1.5em;
+  border-radius: var(--radius);
+  background: var(--obsidian) !important;
+  border: 1px solid var(--graphite);
 }
 
 /* Tables */

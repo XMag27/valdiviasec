@@ -11,6 +11,13 @@ export default defineConfig({
   site: 'https://valdiviasec.com',
   integrations: [mdx(), sitemap()],
 
+  markdown: {
+    shikiConfig: {
+      theme: 'css-variables',
+      wrap: true,
+    },
+  },
+
   fonts: [
       {
           provider: fontProviders.local(),
