@@ -31,11 +31,6 @@ const posts = (await getCollection('blog')).sort(
 					{posts.map((post) => (
 						<article class="card post-card">
 							<a href={`/blog/${post.id}/`}>
-								{post.data.heroImage && (
-									<div class="post-thumb">
-										<img src={post.data.heroImage.src} alt="" loading="lazy" />
-									</div>
-								)}
 								<div class="post-body">
 									<span class="post-category">{post.data.category || 'general'}</span>
 									<h3>{post.data.title}</h3>
@@ -105,17 +100,7 @@ const posts = (await getCollection('blog')).sort(
 		color: inherit;
 		display: block;
 	}
-	.post-thumb {
-		border-radius: var(--radius) var(--radius) 0 0;
-		overflow: hidden;
-		max-height: 180px;
-	}
-	.post-thumb img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		border-radius: 0;
-	}
+
 	.post-body {
 		padding: 1.25rem;
 	}

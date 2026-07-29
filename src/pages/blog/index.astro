@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
@@ -33,16 +32,18 @@ const categoryLabels: Record<string, string> = {
 				<h1>Últimos <span class="accent">artículos</span></h1>
 			</section>
 
+			<div class="filter-bar" id="filter-bar">
+				<button class="filter-btn active" data-filter="all">Todos</button>
+				{categories.map(cat => (
+					<button class="filter-btn" data-filter={cat}>{categoryLabels[cat] || cat}</button>
+				))}
+			</div>
+
 			<div class="blog-layout">
-				<section class="post-list">
+				<section class="post-list" id="post-list">
 					{posts.map((post) => (
-						<article class="card post-card">
+						<article class="card post-card" data-category={post.data.category || 'general'}>
 							<a href={`/blog/${post.id}/`}>
-								{post.data.heroImage && (
-									<div class="post-thumb">
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									</div>
-								)}
 								<div class="post-body">
 									<span class="post-category">{categoryLabels[post.data.category] || post.data.category}</span>
 									<h3>{post.data.title}</h3>
@@ -50,6 +51,7 @@ const categoryLabels: Record<string, string> = {
 										<FormattedDate date={post.data.pubDate} />
 										{post.data.author && <span> · {post.data.author}</span>}
 									</p>
+									<p class="description">{post.data.description}</p>
 									{post.data.tags && (
 										<div class="tags">
 											{post.data.tags.map((tag: string) => (
@@ -65,15 +67,6 @@ const categoryLabels: Record<string, string> = {
 
 				<aside class="right-panel">
 					<div class="panel-section">
-						<h4 class="panel-heading">Categorías</h4>
-						<div class="category-list">
-							{categories.map(cat => (
-								<span class="category-pill">{categoryLabels[cat] || cat}</span>
-							))}
-						</div>
-					</div>
-
-					<div class="panel-section">
 						<h4 class="panel-heading">Tags populares</h4>
 						<div class="tag-cloud">
 							{[...new Set(posts.flatMap(p => p.data.tags))].slice(0, 12).map(tag => (
@@ -86,6 +79,26 @@ const categoryLabels: Record<string, string> = {
 		</SidebarLayout>
 	</body>
 </html>
+
+<script>
+	const filterBtns = document.querySelectorAll('.filter-btn');
+	const postCards = document.querySelectorAll('.post-card');
+
+	filterBtns.forEach(btn => {
+		btn.addEventListener('click', () => {
+			filterBtns.forEach(b => b.classList.remove('active'));
+			btn.classList.add('active');
+			const filter = btn.getAttribute('data-filter');
+			postCards.forEach(card => {
+				if (filter === 'all' || card.getAttribute('data-category') === filter) {
+					(card as HTMLElement).style.display = '';
+				} else {
+					(card as HTMLElement).style.display = 'none';
+				}
+			});
+		});
+	});
+</script>
 
 <style>
 	.hero {
@@ -103,6 +116,34 @@ const categoryLabels: Record<string, string> = {
 	}
 	.hero .accent { color: var(--terracota); }
 
+	.filter-bar {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-bottom: 1.5rem;
+	}
+	.filter-btn {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		letter-spacing: 0.04em;
+		padding: 0.4rem 0.9rem;
+		border-radius: 6px;
+		border: 1px solid var(--graphite);
+		background: transparent;
+		color: var(--muted);
+		cursor: pointer;
+		transition: border-color 0.25s, color 0.25s, background 0.25s;
+	}
+	.filter-btn:hover {
+		border-color: var(--terracota-dark);
+		color: var(--bone);
+	}
+	.filter-btn.active {
+		border-color: var(--terracota);
+		color: var(--bone);
+		background: var(--bg-2);
+	}
+
 	.blog-layout {
 		display: grid;
 		grid-template-columns: 1fr 280px;
@@ -113,7 +154,7 @@ const categoryLabels: Record<string, string> = {
 	.post-list {
 		display: flex;
 		flex-direction: column;
-		gap: 1.25rem;
+		gap: 1rem;
 	}
 	.post-card {
 		overflow: hidden;
@@ -122,17 +163,6 @@ const categoryLabels: Record<string, string> = {
 		text-decoration: none;
 		color: inherit;
 		display: block;
-	}
-	.post-thumb {
-		border-radius: var(--radius) var(--radius) 0 0;
-		overflow: hidden;
-		max-height: 200px;
-	}
-	.post-thumb img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		border-radius: 0;
 	}
 	.post-body {
 		padding: 1.25rem;
@@ -147,7 +177,7 @@ const categoryLabels: Record<string, string> = {
 		margin-bottom: 0.35rem;
 	}
 	.post-card h3 {
-		font-size: 1.25rem;
+		font-size: 1.2rem;
 		font-weight: 700;
 		margin: 0 0 0.4rem 0;
 		color: var(--bone);
@@ -160,6 +190,12 @@ const categoryLabels: Record<string, string> = {
 		font-family: var(--font-mono);
 		font-size: 0.8rem;
 		margin: 0 0 0.5rem 0;
+	}
+	.post-card .description {
+		margin: 0 0 0.75rem 0;
+		color: var(--muted);
+		font-size: 0.92rem;
+		line-height: 1.5;
 	}
 	.tags {
 		display: flex;
@@ -188,25 +224,6 @@ const categoryLabels: Record<string, string> = {
 		margin: 0 0 0.75rem 0;
 		padding-bottom: 0.5rem;
 		border-bottom: 1px solid var(--graphite);
-	}
-	.category-list {
-		display: flex;
-		flex-direction: column;
-		gap: 0.4rem;
-	}
-	.category-pill {
-		display: inline-block;
-		font-size: 0.85rem;
-		color: var(--bone);
-		padding: 0.35rem 0.7rem;
-		border-radius: 6px;
-		background: var(--obsidian);
-		border: 1px solid var(--graphite);
-		transition: border-color 0.2s, color 0.2s;
-	}
-	.category-pill:hover {
-		border-color: var(--terracota-dark);
-		color: var(--terracota-light);
 	}
 	.tag-cloud {
 		display: flex;
