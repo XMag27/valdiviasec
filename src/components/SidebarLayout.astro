@@ -10,8 +10,18 @@ interface Props {
 const { title } = Astro.props;
 const allPosts = await getCollection('blog');
 
-// Derive categories from posts
-const categories = [...new Set(allPosts.map(p => p.data.category || 'general'))];
+// All categories (defined explicitly so they show even with 0 posts)
+const allCategories = [
+	'writeup',
+	'certificaciones',
+	'general',
+	'red-team',
+	'forense',
+	'malware',
+	'investigacion',
+	'papers',
+];
+
 const categoryLabels: Record<string, string> = {
 	writeup: 'Writeups',
 	certificaciones: 'Certificaciones',
@@ -19,6 +29,8 @@ const categoryLabels: Record<string, string> = {
 	'red-team': 'Red Team',
 	forense: 'Forense',
 	malware: 'Malware',
+	investigacion: 'Investigación',
+	papers: 'Papers / Conferencias',
 };
 
 const categoryIcons: Record<string, string> = {
@@ -27,6 +39,8 @@ const categoryIcons: Record<string, string> = {
 	general: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
 	forense: '<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>',
 	malware: '<path d="M12 14l9-5-9-5-9 5 9 5zm0 7l9-5-9-5-9 5 9 5z"/>',
+	investigacion: '<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.573-1.066z"/><circle cx="12" cy="12" r="3"/>',
+	papers: '<path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>',
 };
 
 // Recent posts for sidebar
@@ -57,11 +71,11 @@ const recentPosts = allPosts
 			<div class="sidebar-section">
 				<h4 class="sidebar-heading">Categorías</h4>
 				<div class="sidebar-tags">
-					{categories.map(cat => (
-						<span class="sidebar-tag">
-							<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={categoryIcons[cat] || categoryIcons.general} />
-							{categoryLabels[cat] || cat}
-						</span>
+					{allCategories.map(cat => (
+						<a href={`/blog?cat=${cat}`} class="sidebar-tag">
+							<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={categoryIcons[cat]} />
+							{categoryLabels[cat]}
+						</a>
 					))}
 				</div>
 			</div>
@@ -250,7 +264,7 @@ const recentPosts = allPosts
 	.sidebar-tags {
 		display: flex;
 		flex-direction: column;
-		gap: 0.35rem;
+		gap: 0.15rem;
 	}
 
 	.sidebar-tag {
@@ -261,11 +275,14 @@ const recentPosts = allPosts
 		color: var(--muted);
 		padding: 0.4rem 0.6rem;
 		border-radius: 6px;
-		transition: color 0.2s, background 0.2s;
+		text-decoration: none;
+		transition: color 0.2s, background 0.2s, border-color 0.2s;
+		border: 1px solid transparent;
 	}
 	.sidebar-tag:hover {
 		color: var(--bone);
 		background: var(--bg-2);
+		border-color: var(--graphite);
 	}
 	.sidebar-tag svg {
 		flex-shrink: 0;

@@ -9,7 +9,17 @@ const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 
-const categories = [...new Set(posts.map(p => p.data.category || 'general'))];
+// All categories (defined explicitly so filter shows even categories with 0 posts)
+const allCategories = [
+	'writeup',
+	'certificaciones',
+	'general',
+	'red-team',
+	'forense',
+	'malware',
+	'investigacion',
+	'papers',
+];
 const categoryLabels: Record<string, string> = {
 	writeup: 'Writeups',
 	certificaciones: 'Certificaciones',
@@ -17,6 +27,8 @@ const categoryLabels: Record<string, string> = {
 	'red-team': 'Red Team',
 	forense: 'Forense',
 	malware: 'Malware',
+	investigacion: 'Investigación',
+	papers: 'Papers / Conferencias',
 };
 ---
 
@@ -34,8 +46,8 @@ const categoryLabels: Record<string, string> = {
 
 			<div class="filter-bar" id="filter-bar">
 				<button class="filter-btn active" data-filter="all">Todos</button>
-				{categories.map(cat => (
-					<button class="filter-btn" data-filter={cat}>{categoryLabels[cat] || cat}</button>
+				{allCategories.map(cat => (
+					<button class="filter-btn" data-filter={cat}>{categoryLabels[cat]}</button>
 				))}
 			</div>
 
@@ -84,20 +96,41 @@ const categoryLabels: Record<string, string> = {
 	const filterBtns = document.querySelectorAll('.filter-btn');
 	const postCards = document.querySelectorAll('.post-card');
 
+	function applyFilter(filter: string) {
+		filterBtns.forEach(b => b.classList.remove('active'));
+		const target = filter === 'all'
+			? document.querySelector('.filter-btn[data-filter="all"]')
+			: document.querySelector(`.filter-btn[data-filter="${filter}"]`);
+		target?.classList.add('active');
+		postCards.forEach(card => {
+			if (filter === 'all' || card.getAttribute('data-category') === filter) {
+				(card as HTMLElement).style.display = '';
+			} else {
+				(card as HTMLElement).style.display = 'none';
+			}
+		});
+	}
+
 	filterBtns.forEach(btn => {
 		btn.addEventListener('click', () => {
-			filterBtns.forEach(b => b.classList.remove('active'));
-			btn.classList.add('active');
-			const filter = btn.getAttribute('data-filter');
-			postCards.forEach(card => {
-				if (filter === 'all' || card.getAttribute('data-category') === filter) {
-					(card as HTMLElement).style.display = '';
-				} else {
-					(card as HTMLElement).style.display = 'none';
-				}
-			});
+			const filter = btn.getAttribute('data-filter') || 'all';
+			applyFilter(filter);
+			const url = new URL(window.location.href);
+			if (filter === 'all') {
+				url.searchParams.delete('cat');
+			} else {
+				url.searchParams.set('cat', filter);
+			}
+			history.replaceState(null, '', url.toString());
 		});
 	});
+
+	// Read ?cat= from URL (e.g. sidebar links)
+	const params = new URLSearchParams(window.location.search);
+	const cat = params.get('cat');
+	if (cat) {
+		applyFilter(cat);
+	}
 </script>
 
 <style>
