@@ -73,7 +73,7 @@ const certs = [
 				<div class="certs-grid">
 					{certs.map((cert) => (
 						<div class="cert-card">
-							<img src={cert.src} alt={cert.alt} class="cert-img" loading="lazy" />
+							<img src={cert.src} alt={cert.alt} class:list={['cert-img', { 'cert-img--lg': cert.org === 'INE' }]} loading="lazy" />
 							<div class="cert-name">{cert.alt}</div>
 							<div class="cert-org">{cert.org}</div>
 						</div>
@@ -233,6 +233,9 @@ const certs = [
 		height: 80px;
 		width: auto;
 		border-radius: 8px;
+	}
+	.cert-img--lg {
+		height: 100px;
 	}
 	.cert-name {
 		font-weight: 700;
