@@ -4,6 +4,7 @@ description: 'Conceptos básicos para empezar en el mundo del pentesting'
 pubDate: 'Jul 21 2026'
 author: 'ValdiviaSec'
 tags: ['hacking ético', 'pentesting', 'introducción']
+category: 'general'
 ---
 
 El hacking ético es una disciplina fundamental en la ciberseguridad moderna. A diferencia del hacking malicioso, el hacking ético busca identificar vulnerabilidades antes de que los atacantes las exploten.

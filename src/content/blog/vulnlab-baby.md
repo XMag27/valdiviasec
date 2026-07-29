@@ -5,6 +5,7 @@ pubDate: 'Feb 5 2026'
 heroImage: '../../assets/blog-placeholder-3.jpg'
 author: 'Xavier Magallanes'
 tags: ['vulnlab', 'writeup', 'ctf', 'active-directory', 'windows']
+category: 'writeup'
 ---
 
 El día de hoy vamos a realizar el writeup de la máquina vulnerable Baby de VulnLab. Esta máquina está diseñada para principiantes y nos ayudará a entender conceptos básicos de explotación y escalada de privilegios en entornos Active Directory.

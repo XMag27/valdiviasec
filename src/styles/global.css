@@ -48,7 +48,7 @@
   --radius-sm: 8px;
   --radius: 12px;
   --radius-lg: 18px;
-  --maxw: 720px;
+  --maxw: 100%;
   --space: 24px;
 
   /* ---- Legacy compat ---- */

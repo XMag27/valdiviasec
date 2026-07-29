@@ -27,23 +27,31 @@ const posts = (await getCollection('blog')).sort(
 
 			<section class="posts">
 				<h2>Últimos artículos</h2>
-				<div class="post-list">
+				<div class="post-grid">
 					{posts.map((post) => (
 						<article class="card post-card">
 							<a href={`/blog/${post.id}/`}>
-								<h3>{post.data.title}</h3>
-								<p class="meta">
-									<FormattedDate date={post.data.pubDate} />
-									{post.data.author && <span class="author"> · {post.data.author}</span>}
-								</p>
-								<p class="description">{post.data.description}</p>
-								{post.data.tags && (
-									<div class="tags">
-										{post.data.tags.map((tag: string) => (
-											<span class="tag">{tag}</span>
-										))}
+								{post.data.heroImage && (
+									<div class="post-thumb">
+										<img src={post.data.heroImage.src} alt="" loading="lazy" />
 									</div>
 								)}
+								<div class="post-body">
+									<span class="post-category">{post.data.category || 'general'}</span>
+									<h3>{post.data.title}</h3>
+									<p class="meta">
+										<FormattedDate date={post.data.pubDate} />
+										{post.data.author && <span class="author"> · {post.data.author}</span>}
+									</p>
+									<p class="description">{post.data.description}</p>
+									{post.data.tags && (
+										<div class="tags">
+											{post.data.tags.map((tag: string) => (
+												<span class="tag">{tag}</span>
+											))}
+										</div>
+									)}
+								</div>
 							</a>
 						</article>
 					))}
@@ -68,13 +76,11 @@ const posts = (await getCollection('blog')).sort(
 		margin: 0 0 1rem 0;
 		color: var(--bone);
 	}
-	.hero .accent {
-		color: var(--terracota);
-	}
+	.hero .accent { color: var(--terracota); }
 	.hero .description {
 		font-size: 1.1rem;
 		color: var(--muted);
-		max-width: 560px;
+		max-width: 600px;
 		line-height: 1.6;
 	}
 	.posts {
@@ -86,42 +92,70 @@ const posts = (await getCollection('blog')).sort(
 		margin-bottom: 1.5rem;
 		color: var(--bone);
 	}
-	.post-list {
-		display: flex;
-		flex-direction: column;
+	.post-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
 		gap: 1.25rem;
 	}
 	.post-card {
-		padding: 1.5rem;
+		overflow: hidden;
 	}
 	.post-card a {
 		text-decoration: none;
 		color: inherit;
 		display: block;
 	}
+	.post-thumb {
+		border-radius: var(--radius) var(--radius) 0 0;
+		overflow: hidden;
+		max-height: 180px;
+	}
+	.post-thumb img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 0;
+	}
+	.post-body {
+		padding: 1.25rem;
+	}
+	.post-category {
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--terracota-light);
+		display: inline-block;
+		margin-bottom: 0.35rem;
+	}
 	.post-card h3 {
-		font-size: 1.3rem;
+		font-size: 1.2rem;
 		font-weight: 700;
-		margin: 0 0 0.5rem 0;
+		margin: 0 0 0.4rem 0;
 		color: var(--bone);
 		transition: color 0.25s;
+		line-height: 1.3;
 	}
-	.post-card:hover h3 {
-		color: var(--terracota-light);
-	}
+	.post-card:hover h3 { color: var(--terracota-light); }
 	.post-card .meta {
 		color: var(--muted);
 		font-family: var(--font-mono);
-		font-size: 0.85rem;
+		font-size: 0.8rem;
 		margin: 0 0 0.5rem 0;
 	}
 	.post-card .description {
 		margin: 0 0 0.75rem 0;
 		color: var(--muted);
+		font-size: 0.92rem;
+		line-height: 1.5;
 	}
 	.tags {
 		display: flex;
-		gap: 0.5rem;
+		gap: 0.4rem;
 		flex-wrap: wrap;
+	}
+	@media (max-width: 720px) {
+		.hero { padding: 0 0 2rem; }
+		.post-grid { grid-template-columns: 1fr; }
 	}
 </style>

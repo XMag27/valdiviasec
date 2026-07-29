@@ -13,6 +13,7 @@ const blog = defineCollection({
 			heroImage: z.optional(image()),
 			author: z.string().default('ValdiviaSec'),
 			tags: z.array(z.string()).default([]),
+			category: z.string().default('general'),
 		}),
 });
 

@@ -5,6 +5,7 @@ pubDate: 'Aug 11 2025'
 heroImage: '../../assets/blog-crta.jpeg'
 author: 'ValdiviaSec'
 tags: ['red-team', 'certificación', 'crta', 'review', 'active-directory']
+category: 'certificaciones'
 ---
 
 La certificación **CRTA (Certified Red Team Analyst)** de Zero-Point Security es una opción cada vez más popular para quienes buscan una perspectiva integral del red teaming. En este artículo cubrimos el contenido del curso, la estructura del examen y consejos prácticos de preparación.

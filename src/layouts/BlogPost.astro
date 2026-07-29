@@ -7,7 +7,16 @@ import SidebarLayout from '../components/SidebarLayout.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage, author } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, author, category, tags } = Astro.props;
+
+const categoryLabels: Record<string, string> = {
+	writeup: 'Writeups',
+	certificaciones: 'Certificaciones',
+	general: 'General',
+	'red-team': 'Red Team',
+	forense: 'Forense',
+	malware: 'Malware',
+};
 ---
 
 <html lang="es">
@@ -16,34 +25,74 @@ const { title, description, pubDate, updatedDate, heroImage, author } = Astro.pr
 	</head>
 	<body>
 		<SidebarLayout>
-			<article>
-				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="meta">
-							<FormattedDate date={pubDate} />
-							{author && <span> · {author}</span>}
-						</div>
-						{
-							updatedDate && (
-								<div class="last-updated-on">
-									Actualizado el <FormattedDate date={updatedDate} />
-								</div>
-							)
-						}
-						<h1>{title}</h1>
-						<hr />
+			<article class="blog-post-layout">
+				<div class="post-main">
+					<div class="hero-image">
+						{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
 					</div>
-					<slot />
+					<div class="prose">
+						<div class="title">
+							<div class="meta">
+								<span class="post-category">{categoryLabels[category] || category}</span>
+								<FormattedDate date={pubDate} />
+								{author && <span> · {author}</span>}
+							</div>
+							{
+								updatedDate && (
+									<div class="last-updated-on">
+										Actualizado el <FormattedDate date={updatedDate} />
+									</div>
+								)
+							}
+							<h1>{title}</h1>
+							<hr />
+						</div>
+						<slot />
+					</div>
 				</div>
+
+				<aside class="post-sidebar">
+					{tags && tags.length > 0 && (
+						<div class="panel-section">
+							<h4 class="panel-heading">Tags</h4>
+							<div class="tag-cloud">
+								{tags.map((tag: string) => (
+									<span class="tag">{tag}</span>
+								))}
+							</div>
+						</div>
+					)}
+					<div class="panel-section">
+						<h4 class="panel-heading">Detalles</h4>
+						<div class="detail-row">
+							<span class="detail-label">Categoría</span>
+							<span class="detail-value">{categoryLabels[category] || category}</span>
+						</div>
+						<div class="detail-row">
+							<span class="detail-label">Publicado</span>
+							<span class="detail-value"><FormattedDate date={pubDate} /></span>
+						</div>
+						{author && (
+							<div class="detail-row">
+								<span class="detail-label">Autor</span>
+								<span class="detail-value">{author}</span>
+							</div>
+						)}
+					</div>
+				</aside>
 			</article>
 		</SidebarLayout>
 	</body>
 </html>
 
 <style>
+	.blog-post-layout {
+		display: grid;
+		grid-template-columns: 1fr 240px;
+		gap: 2.5rem;
+		align-items: start;
+	}
+
 	.hero-image {
 		width: 100%;
 	}
@@ -54,7 +103,7 @@ const { title, description, pubDate, updatedDate, heroImage, author } = Astro.pr
 		border: 1px solid var(--graphite);
 	}
 	.prose {
-		max-width: 720px;
+		max-width: 100%;
 		padding: 1em 0;
 		color: var(--bone);
 	}
@@ -88,12 +137,22 @@ const { title, description, pubDate, updatedDate, heroImage, author } = Astro.pr
 		margin: 0 0 0.5em 0;
 		color: var(--bone);
 	}
+	.post-category {
+		font-family: var(--font-mono);
+		font-size: 0.7rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--terracota-light);
+		margin-right: 0.5rem;
+	}
 	.meta {
 		display: flex;
+		align-items: center;
 		gap: 0.5rem;
 		color: var(--muted);
 		font-family: var(--font-mono);
-		font-size: 0.85rem;
+		font-size: 0.8rem;
+		flex-wrap: wrap;
 	}
 	.last-updated-on {
 		font-style: italic;
@@ -102,5 +161,63 @@ const { title, description, pubDate, updatedDate, heroImage, author } = Astro.pr
 	}
 	hr {
 		border-color: var(--graphite);
+	}
+
+	/* Post sidebar */
+	.post-sidebar {
+		position: sticky;
+		top: 2rem;
+	}
+	.panel-section {
+		background: var(--bg-2);
+		border: 1px solid var(--graphite);
+		border-radius: var(--radius);
+		padding: 1.25rem;
+		margin-bottom: 1rem;
+	}
+	.panel-heading {
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--muted);
+		margin: 0 0 0.75rem 0;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid var(--graphite);
+	}
+	.tag-cloud {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+	}
+	.detail-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		padding: 0.35rem 0;
+		border-bottom: 1px solid var(--graphite);
+		font-size: 0.85rem;
+	}
+	.detail-row:last-child {
+		border-bottom: none;
+	}
+	.detail-label {
+		color: var(--muted);
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+	}
+	.detail-value {
+		color: var(--bone);
+		font-size: 0.85rem;
+		text-align: right;
+	}
+
+	@media (max-width: 960px) {
+		.blog-post-layout {
+			grid-template-columns: 1fr;
+		}
+		.post-sidebar {
+			position: static;
+		}
 	}
 </style>
