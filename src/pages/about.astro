@@ -3,25 +3,34 @@ import BaseHead from '../components/BaseHead.astro';
 import SidebarLayout from '../components/SidebarLayout.astro';
 
 const team = [
-  {
-    name: 'Paolo Lara',
-    role: 'Fundador',
-    bio: 'Apasionado por la ciberseguridad y la comunidad tech en Guayaquil.',
-    github: 'https://github.com/larapaolos',
-    linkedin: 'https://www.linkedin.com/in/larapaolos/',
-  },
-  {
-    name: 'Xavier Magallanes',
-    role: 'Co-fundador',
-    bio: 'Pentester, OSCP, red teamer. Comprometido con la seguridad ofensiva y la formación.',
-    github: 'https://github.com/XMag27',
-  },
-  {
-    name: 'David Garcia',
-    role: 'Miembro',
-    bio: 'Entusiasta de la seguridad informática y la investigación en hacking ético.',
-    github: 'https://github.com/',
-  },
+	{
+		name: 'Paolo Lara',
+		role: 'Fundador',
+		github: 'https://github.com/larapaolos',
+		linkedin: 'https://www.linkedin.com/in/larapaolos/',
+		badges: [],
+	},
+	{
+		name: 'Xavier Magallanes',
+		role: 'Co-fundador',
+		github: 'https://github.com/XMag27',
+		badges: [
+			{ src: '/badges/oscp.png', alt: 'OSCP' },
+			{ src: '/badges/oswp.png', alt: 'OSWP' },
+			{ src: '/badges/ewpt.png', alt: 'eWPT' },
+			{ src: '/badges/crta.png', alt: 'CRTA' },
+			{ src: '/badges/crtid.png', alt: 'CRTID' },
+			{ src: '/badges/cnpen.png', alt: 'CNPEN' },
+			{ src: '/badges/ceh-master.png', alt: 'CEH Master' },
+			{ src: '/badges/ejptv2.png', alt: 'eJPTv2' },
+		],
+	},
+	{
+		name: 'David Garcia',
+		role: 'Miembro',
+		github: 'https://github.com/',
+		badges: [],
+	},
 ];
 ---
 
@@ -63,7 +72,19 @@ const team = [
 							</div>
 							<h3>{member.name}</h3>
 							<span class="team-role">{member.role}</span>
-							<p>{member.bio}</p>
+							{member.badges.length > 0 && (
+								<div class="badges">
+									{member.badges.map((badge) => (
+										<img
+											src={badge.src}
+											alt={badge.alt}
+											title={badge.alt}
+											class="badge-img"
+											loading="lazy"
+										/>
+									))}
+								</div>
+							)}
 							<div class="team-links">
 								<a href={member.github} target="_blank" rel="noopener noreferrer" class="team-link">
 									<svg viewBox="0 0 16 16" width="18" height="18" fill="currentColor">
@@ -151,7 +172,7 @@ const team = [
 	}
 	.team-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 		gap: 1.25rem;
 	}
 	.team-card {
@@ -182,13 +203,24 @@ const team = [
 		color: var(--terracota-light);
 		text-transform: uppercase;
 		letter-spacing: 0.1em;
-		margin-bottom: 0.75em;
-	}
-	.team-card p {
-		font-size: 0.9em;
-		color: var(--muted);
 		margin-bottom: 1em;
-		line-height: 1.5;
+	}
+	/* Badges */
+	.badges {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.4rem;
+		margin-bottom: 1em;
+	}
+	.badge-img {
+		height: 36px;
+		width: auto;
+		border-radius: 4px;
+		transition: transform 0.2s ease;
+	}
+	.badge-img:hover {
+		transform: scale(1.1);
 	}
 	.team-links {
 		display: flex;
