@@ -178,7 +178,20 @@ const navItems = [
 		flex-direction: column;
 		z-index: 100;
 		overflow-y: auto;
+		overflow-x: hidden;
+		scrollbar-width: thin;
+		scrollbar-color: var(--graphite) transparent;
 		transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+	.sidebar::-webkit-scrollbar {
+		width: 4px;
+	}
+	.sidebar::-webkit-scrollbar-track {
+		background: transparent;
+	}
+	.sidebar::-webkit-scrollbar-thumb {
+		background: var(--graphite);
+		border-radius: 4px;
 	}
 
 	.sidebar-inner {
