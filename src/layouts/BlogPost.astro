@@ -2,9 +2,8 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
+import SidebarLayout from '../components/SidebarLayout.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
@@ -16,8 +15,7 @@ const { title, description, pubDate, updatedDate, heroImage, author } = Astro.pr
 		<BaseHead title={title} description={description} />
 	</head>
 	<body>
-		<Header />
-		<main>
+		<SidebarLayout>
 			<article>
 				<div class="hero-image">
 					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
@@ -41,17 +39,11 @@ const { title, description, pubDate, updatedDate, heroImage, author } = Astro.pr
 					<slot />
 				</div>
 			</article>
-		</main>
-		<Footer />
+		</SidebarLayout>
 	</body>
 </html>
 
 <style>
-	main {
-		width: calc(100% - 2em);
-		max-width: 100%;
-		margin: 0;
-	}
 	.hero-image {
 		width: 100%;
 	}
@@ -62,10 +54,8 @@ const { title, description, pubDate, updatedDate, heroImage, author } = Astro.pr
 		border: 1px solid var(--graphite);
 	}
 	.prose {
-		width: 720px;
-		max-width: calc(100% - 2em);
-		margin: auto;
-		padding: 1em;
+		max-width: 720px;
+		padding: 1em 0;
 		color: var(--bone);
 	}
 	.prose :global(h2),
@@ -92,7 +82,6 @@ const { title, description, pubDate, updatedDate, heroImage, author } = Astro.pr
 	.title {
 		margin-bottom: 1em;
 		padding: 1em 0;
-		text-align: center;
 		line-height: 1;
 	}
 	.title h1 {
@@ -101,7 +90,6 @@ const { title, description, pubDate, updatedDate, heroImage, author } = Astro.pr
 	}
 	.meta {
 		display: flex;
-		justify-content: center;
 		gap: 0.5rem;
 		color: var(--muted);
 		font-family: var(--font-mono);

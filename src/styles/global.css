@@ -48,7 +48,7 @@
   --radius-sm: 8px;
   --radius: 12px;
   --radius-lg: 18px;
-  --maxw: 1080px;
+  --maxw: 720px;
   --space: 24px;
 
   /* ---- Legacy compat ---- */
@@ -60,6 +60,15 @@
   --gray-dark: 242, 237, 232;
   --gray-gradient: #141416, #0A0A0A;
   --box-shadow: 0 2px 6px rgba(154, 147, 144, 0.15), 0 8px 24px rgba(154, 147, 144, 0.1);
+
+  /* ---- Sidebar ---- */
+  --sidebar-w: 260px;
+}
+
+/* ---- Page transitions ---- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 body {
@@ -77,10 +86,8 @@ body {
 }
 
 main {
-  width: var(--maxw);
-  max-width: calc(100% - 2em);
-  margin: auto;
-  padding: 3em 1em;
+  max-width: var(--maxw);
+  animation: fadeIn 0.4s ease-out;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -99,7 +106,7 @@ strong, b { font-weight: 700; }
 a {
   color: var(--terracota-light);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.25s;
 }
 a:hover {
   color: var(--terracota);
@@ -171,7 +178,7 @@ hr {
   gap: 8px;
   align-items: center;
   text-decoration: none;
-  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  transition: background 0.25s, border-color 0.25s, color 0.25s, transform 0.2s;
 }
 .btn-primary {
   background: var(--terracota);
@@ -181,6 +188,7 @@ hr {
 .btn-primary:hover {
   background: var(--terracota-light);
   color: var(--obsidian);
+  transform: translateY(-1px);
 }
 .btn-ghost {
   border-color: var(--graphite);
@@ -209,17 +217,25 @@ hr {
   border: 1px solid var(--graphite);
   border-radius: 6px;
   padding: 5px 12px;
+  transition: border-color 0.25s, color 0.25s;
+}
+.tag:hover {
+  border-color: var(--terracota-dark);
+  color: var(--terracota-light);
 }
 
 .card {
   background: var(--bg-2);
   border: 1px solid var(--graphite);
   border-radius: var(--radius);
-  transition: border-color 0.2s, transform 0.2s;
+  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .card:hover {
   border-color: var(--terracota-dark);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(196, 82, 42, 0.08);
 }
 
 .sr-only {
@@ -242,8 +258,5 @@ hr {
     --fs-h2: 22px;
     --fs-h3: 18px;
     --fs-body: 16px;
-  }
-  main {
-    padding: 1.5em 1em;
   }
 }
