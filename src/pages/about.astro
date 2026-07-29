@@ -21,17 +21,21 @@ const team = [
 	},
 ];
 
-const certs = [
-	{ src: '/badges/oscp.png', alt: 'OSCP+', org: 'OffSec' },
-	{ src: '/badges/oswp.png', alt: 'OSWP', org: 'OffSec' },
-	{ src: '/badges/ewpt.png', alt: 'eWPT', org: 'INE' },
-	{ src: '/badges/ejptv2.png', alt: 'eJPTv2', org: 'INE' },
-	{ src: '/badges/ceh-master.jpeg', alt: 'CEH Master', org: 'EC-Council' },
-	{ src: '/badges/crta.png', alt: 'eMAPT', org: 'INE' },
-	{ src: '/badges/crtid.png', alt: 'eWPTX', org: 'INE' },
-	{ src: '/badges/cartp.png', alt: 'CARTP', org: 'Altered Security' },
-	{ src: '/badges/gosi.png', alt: 'GOSI', org: 'SANS' },
-	{ src: '/badges/cnpen.png', alt: 'CRTO', org: 'Zero Point Security' },
+const certRows = [
+	[
+		{ src: '/badges/oscp.png', alt: 'OSCP+', org: 'OffSec' },
+		{ src: '/badges/oswp.png', alt: 'OSWP', org: 'OffSec' },
+		{ src: '/badges/ewpt.png', alt: 'eWPT', org: 'INE' },
+		{ src: '/badges/ejptv2.png', alt: 'eJPTv2', org: 'INE' },
+		{ src: '/badges/ceh-master.jpeg', alt: 'CEH Master', org: 'EC-Council' },
+	],
+	[
+		{ src: '/badges/crta.png', alt: 'eMAPT', org: 'INE' },
+		{ src: '/badges/crtid.png', alt: 'eWPTX', org: 'INE' },
+		{ src: '/badges/cartp.png', alt: 'CARTP', org: 'Altered Security' },
+		{ src: '/badges/gosi.png', alt: 'GOSI', org: 'SANS' },
+		{ src: '/badges/cnpen.png', alt: 'CRTO', org: 'Zero Point Security' },
+	],
 ];
 ---
 
@@ -75,12 +79,16 @@ const certs = [
 			<section class="certs">
 				<h2>Certificaciones</h2>
 				<p class="section-sub">Las credenciales que respaldan a nuestra comunidad.</p>
-				<div class="certs-grid">
-					{certs.map((cert) => (
-						<div class="cert-card">
-							<img src={cert.src} alt={cert.alt} class:list={['cert-img', { 'cert-img--lg': cert.org === 'INE' }]} loading="lazy" />
-							<div class="cert-name">{cert.alt}</div>
-							<div class="cert-org">{cert.org}</div>
+				<div class="certs-rows">
+					{certRows.map((row) => (
+						<div class="certs-grid">
+							{row.map((cert) => (
+								<div class="cert-card">
+									<img src={cert.src} alt={cert.alt} class:list={['cert-img', { 'cert-img--lg': cert.org === 'INE' }]} loading="lazy" />
+									<div class="cert-name">{cert.alt}</div>
+									<div class="cert-org">{cert.org}</div>
+								</div>
+							))}
 						</div>
 					))}
 				</div>
@@ -211,6 +219,11 @@ const certs = [
 		font-size: 0.88rem;
 		margin-bottom: 1.75rem;
 		text-align: center;
+	}
+	.certs-rows {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
 	}
 	.certs-grid {
 		display: flex;
